@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb+srv://dev:aiypwzqp2438@cluster0-or99i.mongodb.net/school?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true} )
+mongoose.connect('mongodb+srv://dev:@cluster0-or99i.mongodb.net/school?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true} )
     .then(res => {
         console.log(res);
     })
@@ -26,12 +26,12 @@ mongoose.connect('mongodb+srv://dev:aiypwzqp2438@cluster0-or99i.mongodb.net/scho
 
 
     var s = new Student ({
-        first_name : "Trajko",
-        last_name: "Trajkovski",
-        average_grade: "4.2",
-        courses: ["biology, sport"],
-        email: "trajko.trajkovski@asdsa.com",
-        birthday: new Date ("1998-06-06T12:50:00Z")
+        first_name : "James",
+        last_name: "Jameson",
+        average_grade: "6.5",
+        courses: ["chemistry, math"],
+        email: "james.jameson@asdsa.com",
+        birthday: new Date ("1997-03-06T05:50:00Z")
 
     })
 

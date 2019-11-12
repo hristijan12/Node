@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/hristijan12/Node#readme",
   "dependencies": {
-    "mongoose": "^5.7.8"
+    "mongoose": "^5.7.10"
   }
 }
