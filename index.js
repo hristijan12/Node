@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb+srv://dev:@cluster0-or99i.mongodb.net/school?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true} )
+mongoose.connect('mongodb+srv://dev:@cluster0-or99i.mongodb.net/employees?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true} )
     .then(res => {
         console.log(res);
     })
@@ -8,30 +8,32 @@ mongoose.connect('mongodb+srv://dev:@cluster0-or99i.mongodb.net/school?retryWrit
         console.log(err);
     });
 
-    const Student = mongoose.model(
-        'student',
+    const Employee = mongoose.model(
+        'employee',
         new mongoose.Schema({
         first_name : String,
         last_name: String,
-        average_grade: String,
-        courses: Array,
+        job_title: String,
+        salary: Number,
         email: String,
-        birthday: Date
+        hire_date: Date,
+        birthday: Date,
        
         },
         {
-            collection: "students",
+            collection: "employees",
         })
     );
 
 
-    var s = new Student ({
-        first_name : "James",
-        last_name: "Jameson",
-        average_grade: "6.5",
-        courses: ["chemistry, math"],
-        email: "james.jameson@asdsa.com",
-        birthday: new Date ("1997-03-06T05:50:00Z")
+    var s = new Employee ({
+        first_name : "Daniel",
+        last_name: "Faviet",
+        job_title: "Sales Analyst",
+        salary: "44000",
+        email: "daniel.faviet@adde.com",
+        hire_date: new Date ("2013-03-06T13:03:00Z"),
+        birthday: new Date ("1990-10-15T05:50:00Z")
 
     })
 
