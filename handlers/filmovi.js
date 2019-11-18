@@ -29,10 +29,10 @@ const save = (req, res) => {
     if(data.godina == undefined || data.ime.length == 0) {er++;}
     if(data.zanr == undefined || data.ime.length == 0) {er++;}
     if(data.akteri == undefined || data.ime.length == 0) {er++;}
-    if(data.oscar == undefined) {err++;}
+    if(data.oscar == undefined){err++;}
 
     
-    if(er ==0) {
+    if(er == 0) {
         mFilmovi.save(data)
         .then(() => {
             res.status(201).send('Created');
