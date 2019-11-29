@@ -1,7 +1,7 @@
 const mFilmovi = require ('../models/filmovi');
 
 const getAll = (req, res) => {
-    mFilmovi.getAll()
+    mFilmovi.getAll(req.user.id)
     .then(data => {
         res.status(200).send(data);
     })
@@ -11,7 +11,7 @@ const getAll = (req, res) => {
 }
 
 const getOne = (req, res) => {
-    mFilmovi.getOne(req.params.id)
+    mFilmovi.getOne(req.params.id, req.user.id)
     .then(data => {
         res.status(200).send(data);
         
@@ -29,11 +29,11 @@ const save = (req, res) => {
     if(data.godina == undefined || data.ime.length == 0) {er++;}
     if(data.zanr == undefined || data.ime.length == 0) {er++;}
     if(data.akteri == undefined || data.ime.length == 0) {er++;}
-    if(data.oscar == undefined){err++;}
+    if(data.oscar == undefined){er++;}
 
     
     if(er == 0) {
-        mFilmovi.save(data)
+        mFilmovi.save({...data, user_id: req.user.id})
         .then(() => {
             res.status(201).send('Created');
         })
