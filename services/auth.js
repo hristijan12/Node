@@ -33,7 +33,13 @@ api.post('/api/v1/reset-link', auth.resetLink);
 api.post('/api/v1/reset-password', auth.resetPassword);
 api.post('/api/v1/change-password', auth.changePassword);
 
-api.unsubscribe(function())
+api.use(function(err, req, res, next) {
+    if(err.name === 'UnauthorizedError') {
+        res.status(401).send({message: 'Invalid token'});
+    } else {
+        next(err);
+    }
+})
 
 api.listen(8001, err => {
     if(err) {
