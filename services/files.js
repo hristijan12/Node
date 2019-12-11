@@ -1,20 +1,22 @@
 const express = require('express');
-const config = require('../config/index.js')
-const files = require('../handlers/files')
+const config = require('../config/index.js');
+const files = require('../handlers/files');
 const fileupload = require('express-fileupload');
 const jwt = require('express-jwt');
 
 var api = express();
- api.use(
-     jwt(
+
+api.use(
+    jwt(
         {secret: config.getConfig('jwt').key}
     )
 );
+
 api.use(fileupload({
-    limits: {fileSize: 50* 1024 * 1024}
+    limits: {fileSize: 50 * 1024 * 1024},
 }));
 
-api.post('/api/v1/upload', files.UploadFIle);
+api.post('/api/v1/upload', files.UploadFile);
 
 api.listen(8002, err => {
     if(err){
@@ -23,4 +25,4 @@ api.listen(8002, err => {
         return;
     }
     console.log('Server successfully started on port 8002');
-})
+});
