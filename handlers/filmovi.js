@@ -56,10 +56,10 @@ const save = (req, res) => {
     var data = req.body;
     let er = 0;
     if(data.ime == undefined || data.ime.length == 0) {er++;}
-    if(data.rezija == undefined || data.ime.length == 0) {er++;}
-    if(data.godina == undefined || data.ime.length == 0) {er++;}
-    if(data.zanr == undefined || data.ime.length == 0) {er++;}
-    if(data.akteri == undefined || data.ime.length == 0) {er++;}
+    if(data.rezija == undefined || data.rezija.length == 0) {er++;}
+    if(data.godina == undefined || data.godina.length == 0) {er++;}
+    if(data.zanr == undefined || data.zanr.length == 0) {er++;}
+    if(data.akteri == undefined || data.akteri.length == 0) {er++;}
     if(data.oscar == undefined){er++;}
 
     
@@ -79,14 +79,14 @@ const replace = (req, res) => {
     var data = req.body
     let er = 0;
     if(data.ime == undefined || data.ime.length == 0) {er++;}
-    if(data.rezija == undefined || data.ime.length == 0) {er++;}
-    if(data.godina == undefined || data.ime.length == 0) {er++;}
-    if(data.zanr == undefined || data.ime.length == 0) {er++;}
-    if(data.akteri == undefined || data.ime.length == 0) {er++;}
+    if(data.rezija == undefined || data.rezija.length == 0) {er++;}
+    if(data.godina == undefined || data.godina.length == 0) {er++;}
+    if(data.zanr == undefined || data.zanr.length == 0) {er++;}
+    if(data.akteri == undefined || data.akteri.length == 0) {er++;}
     if(data.oscar == undefined){err++;}
     
     if(er == 0 ){
-    mFilmovi.replace(req.params.id, req.body)
+    mFilmovi.replace(req.params.id, data)
     .then(() => {
         res.status(204).send();
     })
@@ -108,7 +108,7 @@ const update = (req, res) => {
     // if(data.akteri == undefined || data.ime.length == 0) {er++;}
     // if(data.oscar == undefined){err++;}
     
-    mFilmovi.replace(req.params.id, req.body)
+    mFilmovi.replace(req.params.id, data)
     .then(() => {
         res.status(204).send();
     })
