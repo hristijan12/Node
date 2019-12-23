@@ -4,5 +4,11 @@
         "dbname": "",
         "username":"",
         "password":""
+    },
+    "jwt": {
+        "key": ""
+    },
+    "mailer": {
+        "key": ""
     }
 }

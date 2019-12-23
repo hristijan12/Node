@@ -22,7 +22,7 @@ api.use(
         {secret: config.getConfig('jwt').key}
     )
     .unless(
-        {path: ['/api/v1/register','/api/v1/login','/public']}
+        {path: ['/api/v1/register','/api/v1/login','/public','api/v1/confirm/']}
         )
     );
 

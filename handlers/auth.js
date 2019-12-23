@@ -4,6 +4,8 @@ const validator = require('node-input-validator');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 const config = require('../config/index.js')
+const randomstring = require('randomstring');
+
 
 
 const register = (req, res) => {
@@ -21,10 +23,31 @@ const register = (req, res) => {
                         throw new Error(err);
                         return;
                     }
-                    return mUsers.createUser({...req.body, password: hash})
+                    var confirm_hash = randomstring.generate({
+                        length: 30,
+                        charset: 'alphanumeric'
+                    });
+                    return mUsers.createUser({
+                        ...req.body, 
+                        password: hash,
+                        confirm_hash: confirm_hash,
+                        confirmed: false
+                    });
                     // Store hash in your password DB.
                 });
             });
+
+            const sgMail = require('@sendgrid/mail');
+            sgMail.setApiKey(config.getConfig('mailer').key);
+            const msg = {
+                to: req.body.email,
+                from: 'hristijan.taseski@yahoo.com',
+                subject: 'thanks for registering',
+                text: 'thanks for registering',
+                html: `<a href="http://localhost:8001/api/v1/confirm/${confirm_hash}">Thanks for registering</a>`
+            };
+            sgMail.sned(msg);
+            return;
     } else {
         throw new Error('Validation failed')
     }
@@ -58,11 +81,12 @@ const login = (req, res) => {
             return res.status(404).send('not found');
         });
     })
-    .catch(err => {
-        console.log(err);
-        return res.status(500).send('could not get user')
-    })
-    
+
+const confirm = (req, res) => {
+    var hash = req.params.confirm_hash;
+    mUsers
+    return res.status(200).send('ok');
+ 
 }
 const renew = (req, res) => {
     return res.status(200).send(req.user)
@@ -84,5 +108,6 @@ module.exports = {
     resetLink,
     resetPassword,
     changePassword,
+    confirm
     
 }

@@ -25,6 +25,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.13",
     "node-input-validator": "^4.1.0",
-    "randomstring": "^1.1.5"
+    "randomstring": "^1.1.5",
+    "sendgrid": "^5.2.3"
   }
 }
