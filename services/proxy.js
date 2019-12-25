@@ -17,7 +17,7 @@ api.all('/api/v1/filmovi/*', (req, res) => {
 });
 
 
-api.listen(5000, err => {
+api.listen(process.env.PORT, err => {
     if(err){
         console.log('could not start server')
         return;
