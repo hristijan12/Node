@@ -1,0 +1,14 @@
+{
+    "db" : {
+        "host": "cluster0-or99i.mongodb.net",
+        "dbname": "videoteka",
+        "username":"dev",
+        "password":"aiypwzqp2438"
+    },
+    "jwt": {
+        "key": "kluch"
+    },
+    "mailer": {
+        "key": "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"
+    }
+}
