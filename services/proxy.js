@@ -17,4 +17,10 @@ api.all('/api/v1/filmovi/*', (req, res) => {
 });
 
 
-api.listen(5000);
+api.listen(5000, err => {
+    if(err){
+        console.log('could not start server')
+        return;
+    }
+    console.log('server started successfully on port 5000')
+});
