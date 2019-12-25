@@ -19,7 +19,8 @@ api.all('/api/v1/filmovi/*', (req, res) => {
 
 api.listen(process.env.PORT, err => {
     if(err){
-        console.log('could not start server')
+        console.log('could not start server');
+        console.log(err);
         return;
     }
     console.log('server started successfully on port 5000')
