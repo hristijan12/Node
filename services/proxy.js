@@ -16,6 +16,10 @@ api.all('/api/v1/filmovi/*', (req, res) => {
     apiProxy.web(req, res, {target: 'http://loacalhost:8080'})
 });
 
+api.all('/*', (req, res) => {
+    res.status(404).send('not found');
+});
+
 
 api.listen(process.env.PORT, err => {
     if(err){
