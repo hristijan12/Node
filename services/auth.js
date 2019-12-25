@@ -10,7 +10,7 @@ db.init(config.getConfig('db'));
 
 var api = express();
 //only for testing purposes
-var pub = path.join(__dirname,'..', 'public');
+var pub = path.join(__dirname, '..', 'public');
 api.use('/public', express.static(pub));
 //only for testing purposes
 
@@ -22,11 +22,12 @@ api.use(
         {secret: config.getConfig('jwt').key}
     )
     .unless(
-        {path: ['/api/v1/register','/api/v1/login','/public','api/v1/confirm/']}
+        {path: ['/api/v1/register','/api/v1/login','/public',/\/api\/v1\/confirm\/.*/]}
         )
     );
 
 api.post('/api/v1/register', auth.register);
+api.get('/api/v1/confirm/:confirm_hash', auth.confirm);
 api.post('/api/v1/login', auth.login);
 api.get('/api/v1/renew', auth.renew);
 api.post('/api/v1/reset-link', auth.resetLink);

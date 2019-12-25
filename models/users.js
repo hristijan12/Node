@@ -10,7 +10,7 @@ var User = mongoose.model(
         confirm_hash: String,
         confirmed: Boolean
     })
-)
+);
 
 const createUser = (data) => {
     return new Promise((success, fail) => {
@@ -20,8 +20,8 @@ const createUser = (data) => {
                 return fail(err)
             }
             return success();
-        })
-    })
+        });
+    });
 }
 
 const getUserPasswordByEmail = (email) => {

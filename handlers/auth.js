@@ -1,10 +1,11 @@
 const mUsers = require('../models/users')
 const vUsers = require('../validators/users')
-const validator = require('node-input-validator');
+var validator = require('node-input-validator');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
-const config = require('../config/index.js')
+const config = require('../config/index.js');
 const randomstring = require('randomstring');
+const sgMail = require('@sendgrid/mail');
 
 
 
@@ -27,17 +28,13 @@ const register = (req, res) => {
                         length: 30,
                         charset: 'alphanumeric'
                     });
-                    return mUsers.createUser({
+                    mUsers.createUser({
                         ...req.body, 
                         password: hash,
                         confirm_hash: confirm_hash,
                         confirmed: false
                     });
                     // Store hash in your password DB.
-                });
-            });
-
-            const sgMail = require('@sendgrid/mail');
             sgMail.setApiKey(config.getConfig('mailer').key);
             const msg = {
                 to: req.body.email,
@@ -46,14 +43,16 @@ const register = (req, res) => {
                 text: 'thanks for registering',
                 html: `<a href="http://localhost:8001/api/v1/confirm/${confirm_hash}">Thanks for registering</a>`
             };
-            sgMail.sned(msg);
+            sgMail.send(msg);
             return;
-    } else {
-        throw new Error('Validation failed')
+        }); 
+    });
+    }else {
+        throw new Error('Validation failed');
     }
 })
     .then(() => {
-        return res.status(201).send('user created')
+        return res.status(201).send('ok')
         
     })
     .catch(err => {
@@ -81,13 +80,12 @@ const login = (req, res) => {
             return res.status(404).send('not found');
         });
     })
+    .catch(err => {
+        console.log(err);
+        return res.status(500).send('Could not get user');
+    });
+};
 
-const confirm = (req, res) => {
-    var hash = req.params.confirm_hash;
-    mUsers
-    return res.status(200).send('ok');
- 
-}
 const renew = (req, res) => {
     return res.status(200).send(req.user)
 }
@@ -99,7 +97,26 @@ const resetPassword = (req, res) => {
 }   
 const changePassword = (req, res) => {
     return res.status(200).send('ok')
-}   
+}  
+
+const confirm = (req, res) => {
+    // koga nekoj kje klikne na 
+    // http://localhost:8001/api/v1/confirm/[CONFIRM_HASH]
+    // go nosi na ovoj handler
+    // go prezemate hash-ot
+    // proveruvate vo baza dali vakov hash postoi
+    // ako postoi na istiot record mu setirate
+    // confirmed: true
+    var hash = req.params.confirm_hash;
+    mUsers.confirmUserAccount(hash)
+    .then(() => {
+        return res.status(200).send('ok');
+    })
+    .catch((err) => {
+        return res.status(500).send('Internal server error');
+    })
+}
+
 
 module.exports = {
     register,
@@ -109,5 +126,4 @@ module.exports = {
     resetPassword,
     changePassword,
     confirm
-    
 }
